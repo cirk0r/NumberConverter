@@ -15,8 +15,7 @@
             @Html.TextBoxFor(m => m.Value, new {@type = "number", @step = ".01", @min = "0", @max = "1000000000"})
 
             <br class="clearfix"/>
-
-            @Html.ValidationMessageFor(m => m.Value, "Please enter a value less than or equal to 1000000000.", new {@class = "field-validation-error"})
+            @Html.ValidationMessageFor(m => m.Value, "", new {@class = "field-validation-error error-text" })
 
             <br class="clearfix"/>
             <input type="submit" value="Convert to text"/>
