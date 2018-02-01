@@ -1,0 +1,31 @@
+﻿@model NumberConverter.ViewModel.ConversionViewModel
+
+@{
+    ViewBag.Title = "Number to text conversion";
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+
+<div class="jumbotron">
+    @using (Ajax.BeginForm("Conversion", "Conversion", new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "resultContainer"}))
+    {
+        <div class="navbar-form">
+            @Html.LabelFor(m => m.Value)
+            @Html.TextBoxFor(m => m.Value, new {@type = "number", @step = ".01", @min = "0", @max = "1000000000"})
+
+            <br class="clearfix"/>
+
+            @Html.ValidationMessageFor(m => m.Value, "Please enter a value less than or equal to 1000000000.", new {@class = "field-validation-error"})
+
+            <br class="clearfix"/>
+            <input type="submit" value="Convert to text"/>
+        </div>
+
+        <div id="resultContainer" class="navbar-form">
+            @Html.Partial("ConversionResult", string.IsNullOrWhiteSpace(Model.Translation) ? string.Empty : Model.Translation)
+        </div>
+    }
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
