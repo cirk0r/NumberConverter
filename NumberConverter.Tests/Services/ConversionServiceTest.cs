@@ -37,7 +37,7 @@ namespace NumberConverter.Tests.Services
                     ? Convert.ToInt32(_conversionLogicMock.Object.ConversionModel.Value.ToString().Split(char.Parse(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator))?.Last())
                     : -1;
                 _conversionLogicMock.Object.ConversionModel.IsDecimalPartEqualZero = _conversionLogicMock.Object.ConversionModel.DecimalPart <= 0;
-                _conversionLogicMock.Object.ConversionModel.IntegerPartSplitted = _conversionLogicMock.Object.ConversionModel.IntegerPart.ToString().SplitToParts();
+                _conversionLogicMock.Object.ConversionModel.IntegerPartSplitted = _conversionLogicMock.Object.ConversionModel.IntegerPart.ToString().Split(StringExtensions.DefaultChunkSize);
 
                 if (_conversionLogicMock.Object.ConversionModel.PartsConversions == null)
                     _conversionLogicMock.Object.ConversionModel.PartsConversions = new List<string>();

@@ -4,24 +4,27 @@ namespace NumberConverter.Service.Extensions
 {
     public static class StringExtensions
     {
+        public const int DefaultChunkSize = 3;
+
         /// <summary>
-        /// Splits given text into smaller parts of maximum 3 characters length each
+        /// Splits given text into smaller chunks with chunk size being specified by parameter
         /// </summary>
         /// <param name="text">Text to split</param>
-        /// <returns>Array of smaller parts</returns>
-        public static string[] SplitToParts(this string text)
+        /// <param name="chunkSize">Size of chunk</param>
+        /// <returns>Array of smaller chunks</returns>
+        public static string[] Split(this string text, int chunkSize)
         {
-            List<string> triples = new List<string>();
+            List<string> chunks = new List<string>();
 
             while (text.Length > 0)
             {
-                var amountOfCharsToTake = text.Length % 3 == 0 ? 3 : text.Length % 3;
-                triples.Add(text.Substring(0, amountOfCharsToTake));
+                var amountOfCharsToTake = text.Length % chunkSize == 0 ? 3 : text.Length % chunkSize;
+                chunks.Add(text.Substring(0, amountOfCharsToTake));
 
                 text = text.Remove(0, amountOfCharsToTake);
             }
 
-            return triples.ToArray();
+            return chunks.ToArray();
         }
     }
 }

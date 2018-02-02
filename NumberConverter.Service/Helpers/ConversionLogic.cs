@@ -30,15 +30,13 @@ namespace NumberConverter.Service.Helpers
 
             _conversionModel.Value = value;
 
-            var twoPartDecimalArray = _conversionModel.Value.ToString().Split(char.Parse(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator));
+            GetIntegerAndDecimalParts();
+            SplitIntegerPart();
+            CreateIntegerPartsConversions();
+        }
 
-            _conversionModel.IntegerPart = Convert.ToInt64(twoPartDecimalArray?.First());
-            _conversionModel.DecimalPart = twoPartDecimalArray?.Length > 1
-                ? Convert.ToInt32(_conversionModel.Value.ToString().Split(char.Parse(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator))?.Last())
-                : -1;
-            _conversionModel.IsDecimalPartEqualZero = _conversionModel.DecimalPart <= 0;
-            _conversionModel.IntegerPartSplitted = _conversionModel.IntegerPart.ToString().SplitToParts();
-
+        private void CreateIntegerPartsConversions()
+        {
             if (_conversionModel.PartsConversions == null)
                 _conversionModel.PartsConversions = new List<string>();
 
@@ -46,6 +44,26 @@ namespace NumberConverter.Service.Helpers
             {
                 _conversionModel.PartsConversions.Add(ConvertPartOfNumber(_conversionModel.IntegerPartSplitted[i], _conversionModel.IntegerPartSplitted.Length - i - 1));
             }
+
+            _conversionModel.PartsConversions.RemoveAll(string.IsNullOrWhiteSpace);
+        }
+
+        private void SplitIntegerPart()
+        {
+            _conversionModel.IntegerPartSplitted = _conversionModel.IntegerPart.ToString().Split(StringExtensions.DefaultChunkSize);
+        }
+
+        private void GetIntegerAndDecimalParts()
+        {
+            //first array alement should contain integer part of given number, last should contain decimal part
+            var twoPartDecimalArray = _conversionModel.Value.ToString().Split(char.Parse(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator));
+
+            _conversionModel.IntegerPart = Convert.ToInt64(twoPartDecimalArray?.First());
+            _conversionModel.DecimalPart = twoPartDecimalArray?.Length > 1
+                ? Convert.ToInt32(_conversionModel.Value.ToString().Split(char.Parse(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator))?.Last())
+                : -1;
+
+            _conversionModel.IsDecimalPartEqualZero = _conversionModel.DecimalPart <= 0;
         }
 
         /// <summary>
@@ -56,31 +74,54 @@ namespace NumberConverter.Service.Helpers
         /// <returns>Part conversion</returns>
         public static string ConvertPartOfNumber(string part, int partIndex)
         {
-            var rightDigit = Convert.ToInt32(part.Substring(part.Length - 1, 1));
-            var middleDigit = part.Length > 1 ? Convert.ToInt32(part.Substring(part.Length - 2, 1)) : -1;
-            var leftDigit = part.Length > 2 ? Convert.ToInt32(part.Substring(part.Length - 3, 1)) : -1;
+            int rightDigit, middleDigit, leftDigit;
+            SplitNumberToDigits(part, out rightDigit, out middleDigit, out leftDigit);
 
             if (rightDigit == 0 && middleDigit == 0 && leftDigit == 0)
                 return string.Empty;
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder = stringBuilder.Append(Conversions.GetTenMultiplesNames()[partIndex]);
-            stringBuilder = middleDigit != 1
-                ? stringBuilder.Insert(0, $"{Conversions.GetDigitsNames()[rightDigit]} ")
-                : stringBuilder.Append(string.Empty);
 
+            stringBuilder = AppendRightDigitConversion(partIndex, rightDigit, middleDigit, stringBuilder);
+            stringBuilder = AppendMiddleDigitConversion(part, rightDigit, middleDigit, stringBuilder);
+            stringBuilder = AppendLeftDigitConversion(part, leftDigit, stringBuilder);
+
+            return stringBuilder.ToString().Trim();
+        }
+
+        private static StringBuilder AppendLeftDigitConversion(string part, int leftDigit, StringBuilder stringBuilder)
+        {
+            stringBuilder = part.Length > 2 && leftDigit > 0
+                ? stringBuilder.Insert(0,
+                    $"{Conversions.GetDigitsNames()[leftDigit]} {Conversions.GetHundredName()} ")
+                : stringBuilder.Append(string.Empty);
+            return stringBuilder;
+        }
+
+        private static StringBuilder AppendMiddleDigitConversion(string part, int rightDigit, int middleDigit, StringBuilder stringBuilder)
+        {
             stringBuilder = part.Length > 1
                 ? (middleDigit == 1 ?
                     stringBuilder.Insert(0, $"{Conversions.GetTeenNumbersNames()[rightDigit]} ")
                     : stringBuilder.Insert(0, $"{Conversions.GetTensNames()[middleDigit]} "))
                 : stringBuilder.Append(string.Empty);
+            return stringBuilder;
+        }
 
-            stringBuilder = part.Length > 2 && leftDigit > 0
-                ? stringBuilder.Insert(0,
-                    $"{Conversions.GetDigitsNames()[leftDigit]} {Conversions.GetHundredName()} ")
+        private static StringBuilder AppendRightDigitConversion(int partIndex, int rightDigit, int middleDigit, StringBuilder stringBuilder)
+        {
+            stringBuilder = stringBuilder.Append(Conversions.GetTenMultiplesNames()[partIndex]);
+            stringBuilder = middleDigit != 1
+                ? stringBuilder.Insert(0, $"{Conversions.GetDigitsNames()[rightDigit]} ")
                 : stringBuilder.Append(string.Empty);
+            return stringBuilder;
+        }
 
-            return stringBuilder.ToString().Trim();
+        private static void SplitNumberToDigits(string part, out int rightDigit, out int middleDigit, out int leftDigit)
+        {
+            rightDigit = Convert.ToInt32(part.Substring(part.Length - 1, 1));
+            middleDigit = part.Length > 1 ? Convert.ToInt32(part.Substring(part.Length - 2, 1)) : -1;
+            leftDigit = part.Length > 2 ? Convert.ToInt32(part.Substring(part.Length - 3, 1)) : -1;
         }
     }
 }

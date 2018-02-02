@@ -17,13 +17,11 @@ namespace NumberConverter.Service.Concrete
         public string Convert(decimal value)
         {
             _conversionLogic.ProcessDecimal(value);
-            var nonEmptyConversionParts = _conversionLogic?.ConversionModel?.PartsConversions?.Where(
-                conversion => !string.IsNullOrWhiteSpace(conversion));
 
-            if (nonEmptyConversionParts == null)
+            if (!_conversionLogic?.ConversionModel?.PartsConversions?.Any() ?? false)
                 return string.Empty;
 
-            var integerPartConversion = string.Join(" ", nonEmptyConversionParts);
+            var integerPartConversion = string.Join(" ", _conversionLogic?.ConversionModel?.PartsConversions);
 
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(integerPartConversion)
                 + GetDecimalPartConversion();
@@ -33,7 +31,12 @@ namespace NumberConverter.Service.Concrete
         {
             return (_conversionLogic.ConversionModel.IsDecimalPartEqualZero
                             ? string.Empty
-                            : $" and {_conversionLogic.ConversionModel.DecimalPart} / {Math.Pow(10, _conversionLogic.ConversionModel.DecimalPart.ToString().Length)}");
+                            : GetDecimalPartFormattedConversion());
+        }
+
+        private string GetDecimalPartFormattedConversion()
+        {
+            return $" and {_conversionLogic.ConversionModel.DecimalPart} / {Math.Pow(10, _conversionLogic.ConversionModel.DecimalPart.ToString().Length)}";
         }
     }
 }
