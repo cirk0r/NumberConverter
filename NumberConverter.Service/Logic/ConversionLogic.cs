@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using NumberConverter.Service.Abstract;
 using NumberConverter.Service.Extensions;
+using NumberConverter.Service.Helpers;
 using NumberConverter.ViewModel.Models;
 
-namespace NumberConverter.Service.Helpers
+namespace NumberConverter.Service.Logic
 {
     public class ConversionLogic : IConversionLogic
     {

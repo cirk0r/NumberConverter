@@ -8,6 +8,7 @@ using NumberConverter.Service.Abstract;
 using NumberConverter.Service.Concrete;
 using NumberConverter.Service.Extensions;
 using NumberConverter.Service.Helpers;
+using NumberConverter.Service.Logic;
 using NumberConverter.ViewModel.Models;
 
 namespace NumberConverter.Tests.Services

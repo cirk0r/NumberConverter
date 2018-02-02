@@ -53,7 +53,7 @@
     <Compile Include="Abstract\IConversionService.cs" />
     <Compile Include="Concrete\ConversionService.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Helpers\ConversionLogic.cs" />
+    <Compile Include="Logic\ConversionLogic.cs" />
     <Compile Include="Helpers\Conversions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

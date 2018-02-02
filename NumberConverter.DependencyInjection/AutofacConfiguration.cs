@@ -2,6 +2,7 @@
 using NumberConverter.Service.Abstract;
 using NumberConverter.Service.Concrete;
 using NumberConverter.Service.Helpers;
+using NumberConverter.Service.Logic;
 
 namespace NumberConverter.IoC
 {
