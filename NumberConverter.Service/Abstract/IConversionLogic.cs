@@ -2,9 +2,9 @@
 
 namespace NumberConverter.Service.Abstract
 {
-    public interface ITranslationLogic
+    public interface IConversionLogic
     {
-        TranslationModel TranslationModel { get; }
+        ConversionModel ConversionModel { get; }
         void ProcessDecimal(decimal value);
     }
 }

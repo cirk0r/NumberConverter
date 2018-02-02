@@ -100,8 +100,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="Services\TranslationLogicTest.cs" />
-    <Compile Include="Services\TranslationServiceTest.cs" />
+    <Compile Include="Services\ConversionLogicTest.cs" />
+    <Compile Include="Services\ConversionServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

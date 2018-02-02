@@ -49,12 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\ITranslationLogic.cs" />
-    <Compile Include="Abstract\ITranslationService.cs" />
-    <Compile Include="Concrete\TranslationService.cs" />
+    <Compile Include="Abstract\IConversionLogic.cs" />
+    <Compile Include="Abstract\IConversionService.cs" />
+    <Compile Include="Concrete\ConversionService.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Helpers\TranslationLogic.cs" />
-    <Compile Include="Helpers\Translations.cs" />
+    <Compile Include="Helpers\ConversionLogic.cs" />
+    <Compile Include="Helpers\Conversions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

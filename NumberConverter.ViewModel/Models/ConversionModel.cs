@@ -2,10 +2,10 @@
 
 namespace NumberConverter.ViewModel.Models
 {
-    public class TranslationModel
+    public class ConversionModel
     {
         /// <summary>
-        /// Value to be translated
+        /// Value to be converted
         /// </summary>
         public decimal Value { get; set; }
 
@@ -20,7 +20,7 @@ namespace NumberConverter.ViewModel.Models
         public int DecimalPart { get; set; }
 
         /// <summary>
-        /// Contains integer part splitted into smaller parts of maximum 3 digits each for translation purposes
+        /// Contains integer part splitted into smaller parts of maximum 3 digits each for conversion purposes
         /// </summary>
         public string[] IntegerPartSplitted { get; set; }
 
@@ -30,8 +30,8 @@ namespace NumberConverter.ViewModel.Models
         public bool IsDecimalPartEqualZero { get; set; }
 
         /// <summary>
-        /// Translations of parts contained in IntegerPartSplitted array
+        /// Conversions of parts contained in IntegerPartSplitted array
         /// </summary>
-        public List<string> PartsTranslations { get; set; }
+        public List<string> PartsConversions { get; set; }
     }
 }

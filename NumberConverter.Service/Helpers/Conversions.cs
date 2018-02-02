@@ -2,9 +2,9 @@
 
 namespace NumberConverter.Service.Helpers
 {
-    internal static class Translations
+    internal static class Conversions
     {
-        internal static List<string> GetDigitsList()
+        internal static List<string> GetDigitsNames()
         {
             return new List<string>()
             {
@@ -21,7 +21,7 @@ namespace NumberConverter.Service.Helpers
             };
         }
 
-        internal static List<string> GetTeensList()
+        internal static List<string> GetTeenNumbersNames()
         {
             return new List<string>()
             {
@@ -38,7 +38,7 @@ namespace NumberConverter.Service.Helpers
             };
         }
 
-        internal static List<string> GetDozensList()
+        internal static List<string> GetTensNames()
         {
             return new List<string>()
             {
@@ -55,12 +55,12 @@ namespace NumberConverter.Service.Helpers
             };
         }
 
-        internal static string GetHundred()
+        internal static string GetHundredName()
         {
             return "hundred";
         }
 
-        internal static List<string> GetTenMultiplesList()
+        internal static List<string> GetTenMultiplesNames()
         {
             return new List<string>()
             {

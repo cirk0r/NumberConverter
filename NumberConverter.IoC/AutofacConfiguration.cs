@@ -18,12 +18,12 @@ namespace NumberConverter.IoC
 
         private static void RegisterServices(ContainerBuilder container)
         {
-            container.RegisterType(typeof(TranslationService)).As(typeof(ITranslationService));
+            container.RegisterType(typeof(ConversionService)).As(typeof(IConversionService));
         }
 
         private static void RegisterLogic(ContainerBuilder container)
         {
-            container.RegisterType(typeof(TranslationLogic)).As(typeof(ITranslationLogic));
+            container.RegisterType(typeof(ConversionLogic)).As(typeof(IConversionLogic));
         }
     }
 }

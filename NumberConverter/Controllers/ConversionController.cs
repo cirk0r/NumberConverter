@@ -6,10 +6,10 @@ namespace NumberConverter.Controllers
 {
     public class ConversionController : Controller
     {
-        private readonly ITranslationService _translationService;
-        public ConversionController(ITranslationService translationService)
+        private readonly IConversionService _conversionService;
+        public ConversionController(IConversionService conversionService)
         {
-            _translationService = translationService;
+            _conversionService = conversionService;
         }
 
         public ActionResult Conversion()
@@ -20,9 +20,9 @@ namespace NumberConverter.Controllers
         [HttpPost]
         public ActionResult Conversion(ConversionViewModel model)
         {
-            model.Translation = _translationService.Translate(model.Value);
+            model.Conversion = _conversionService.Convert(model.Value);
 
-            return PartialView("ConversionResult", model.Translation);
+            return PartialView("ConversionResult", model.Conversion);
         }
     }
 }
