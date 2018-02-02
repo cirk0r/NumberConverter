@@ -110,9 +110,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NumberConverter.IoC\NumberConverter.IoC.csproj">
+    <ProjectReference Include="..\NumberConverter.DependencyInjection\NumberConverter.DependencyInjection.csproj">
       <Project>{a408df0b-615a-4f2a-9693-b116170ec528}</Project>
-      <Name>NumberConverter.IoC</Name>
+      <Name>NumberConverter.DependencyInjection</Name>
     </ProjectReference>
     <ProjectReference Include="..\NumberConverter.Service\NumberConverter.Service.csproj">
       <Project>{fb65b490-31fa-4736-ba0c-3aca9ee86ca1}</Project>

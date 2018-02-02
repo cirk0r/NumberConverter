@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberConverter.Tests", "Nu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberConverter.Service", "NumberConverter.Service\NumberConverter.Service.csproj", "{FB65B490-31FA-4736-BA0C-3ACA9EE86CA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberConverter.IoC", "NumberConverter.IoC\NumberConverter.IoC.csproj", "{A408DF0B-615A-4F2A-9693-B116170EC528}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberConverter.DependencyInjection", "NumberConverter.DependencyInjection\NumberConverter.DependencyInjection.csproj", "{A408DF0B-615A-4F2A-9693-B116170EC528}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberConverter.ViewModel", "NumberConverter.ViewModel\NumberConverter.ViewModel.csproj", "{940E8451-0FD0-48E7-82D9-E1C039DD85EB}"
 EndProject
