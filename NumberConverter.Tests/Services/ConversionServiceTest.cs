@@ -23,7 +23,7 @@ namespace NumberConverter.Tests.Services
             _conversionLogicMock = new Mock<IConversionLogic>();
             ConversionModel conversionModel = new ConversionModel() { Value = initialValue };
             _conversionLogicMock.Setup(x => x.ConversionModel).Returns(conversionModel);
-            _conversionLogicMock.Setup(x => x.ProcessDecimal(It.IsAny<decimal>())).Callback((decimal value) =>
+            _conversionLogicMock.Setup(x => x.PrepareDecimalForConversion(It.IsAny<decimal>())).Callback((decimal value) =>
             {
                 if (value < 0)
                     return;
@@ -46,6 +46,8 @@ namespace NumberConverter.Tests.Services
                 {
                     _conversionLogicMock.Object.ConversionModel.PartsConversions.Add(ConversionLogic.ConvertPartOfNumber(_conversionLogicMock.Object.ConversionModel.IntegerPartSplitted[i], _conversionLogicMock.Object.ConversionModel.IntegerPartSplitted.Length - i - 1));
                 }
+
+                _conversionLogicMock.Object.ConversionModel.PartsConversions.RemoveAll(string.IsNullOrWhiteSpace);
             });
 
             _conversionService = new ConversionService(_conversionLogicMock.Object);

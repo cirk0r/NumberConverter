@@ -23,7 +23,7 @@ namespace NumberConverter.Service.Helpers
         /// <summary>
         /// Processes given decimal value and splits it to parts
         /// </summary>
-        public void ProcessDecimal(decimal value)
+        public void PrepareDecimalForConversion(decimal value)
         {
             if (value < 0)
                 return;
@@ -33,6 +33,29 @@ namespace NumberConverter.Service.Helpers
             GetIntegerAndDecimalParts();
             SplitIntegerPart();
             CreateIntegerPartsConversions();
+        }
+
+        /// <summary>
+        /// Converts given part of decimal into text
+        /// </summary>
+        /// <param name="part">Part of decimal (max 3 characters long)</param>
+        /// <param name="partIndex">Index of part to indicate thousands, millions, etc.</param>
+        /// <returns>Part conversion</returns>
+        public static string ConvertPartOfNumber(string part, int partIndex)
+        {
+            int rightDigit, middleDigit, leftDigit;
+            SplitNumberToDigits(part, out rightDigit, out middleDigit, out leftDigit);
+
+            if (rightDigit == 0 && middleDigit == 0 && leftDigit == 0)
+                return string.Empty;
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder = AppendRightDigitConversion(partIndex, rightDigit, middleDigit, stringBuilder);
+            stringBuilder = AppendMiddleDigitConversion(part, rightDigit, middleDigit, stringBuilder);
+            stringBuilder = AppendLeftDigitConversion(part, leftDigit, stringBuilder);
+
+            return stringBuilder.ToString().Trim();
         }
 
         private void CreateIntegerPartsConversions()
@@ -64,29 +87,6 @@ namespace NumberConverter.Service.Helpers
                 : -1;
 
             _conversionModel.IsDecimalPartEqualZero = _conversionModel.DecimalPart <= 0;
-        }
-
-        /// <summary>
-        /// Converts given part of decimal into text
-        /// </summary>
-        /// <param name="part">Part of decimal (max 3 characters long)</param>
-        /// <param name="partIndex">Index of part to indicate thousands, millions, etc.</param>
-        /// <returns>Part conversion</returns>
-        public static string ConvertPartOfNumber(string part, int partIndex)
-        {
-            int rightDigit, middleDigit, leftDigit;
-            SplitNumberToDigits(part, out rightDigit, out middleDigit, out leftDigit);
-
-            if (rightDigit == 0 && middleDigit == 0 && leftDigit == 0)
-                return string.Empty;
-
-            StringBuilder stringBuilder = new StringBuilder();
-
-            stringBuilder = AppendRightDigitConversion(partIndex, rightDigit, middleDigit, stringBuilder);
-            stringBuilder = AppendMiddleDigitConversion(part, rightDigit, middleDigit, stringBuilder);
-            stringBuilder = AppendLeftDigitConversion(part, leftDigit, stringBuilder);
-
-            return stringBuilder.ToString().Trim();
         }
 
         private static StringBuilder AppendLeftDigitConversion(string part, int leftDigit, StringBuilder stringBuilder)

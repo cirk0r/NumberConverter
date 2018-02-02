@@ -14,7 +14,7 @@ namespace NumberConverter.Tests.Services
 
             var conversionLogic = new ConversionLogic();
 
-            conversionLogic.ProcessDecimal(value);
+            conversionLogic.PrepareDecimalForConversion(value);
 
             Assert.IsNull(conversionLogic.ConversionModel.IntegerPartSplitted);
             Assert.IsNull(conversionLogic.ConversionModel.PartsConversions);
@@ -33,7 +33,7 @@ namespace NumberConverter.Tests.Services
 
             var conversionLogic = new ConversionLogic();
 
-            conversionLogic.ProcessDecimal(value);
+            conversionLogic.PrepareDecimalForConversion(value);
 
             Assert.IsNotNull(conversionLogic.ConversionModel.IntegerPartSplitted);
             Assert.AreEqual(expectedSplittedIntegerPart.Length, conversionLogic.ConversionModel.IntegerPartSplitted.Length);

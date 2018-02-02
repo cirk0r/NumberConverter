@@ -5,6 +5,6 @@ namespace NumberConverter.Service.Abstract
     public interface IConversionLogic
     {
         ConversionModel ConversionModel { get; }
-        void ProcessDecimal(decimal value);
+        void PrepareDecimalForConversion(decimal value);
     }
 }

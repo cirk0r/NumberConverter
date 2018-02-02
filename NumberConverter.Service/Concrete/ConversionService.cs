@@ -16,9 +16,9 @@ namespace NumberConverter.Service.Concrete
 
         public string Convert(decimal value)
         {
-            _conversionLogic.ProcessDecimal(value);
+            _conversionLogic.PrepareDecimalForConversion(value);
 
-            if (!_conversionLogic?.ConversionModel?.PartsConversions?.Any() ?? false)
+            if (!(_conversionLogic?.ConversionModel?.PartsConversions?.Any() ?? false))
                 return string.Empty;
 
             var integerPartConversion = string.Join(" ", _conversionLogic?.ConversionModel?.PartsConversions);
