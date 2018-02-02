@@ -111,9 +111,12 @@ namespace NumberConverter.Service.Helpers
         private static StringBuilder AppendRightDigitConversion(int partIndex, int rightDigit, int middleDigit, StringBuilder stringBuilder)
         {
             stringBuilder = stringBuilder.Append(Conversions.GetTenMultiplesNames()[partIndex]);
-            stringBuilder = middleDigit != 1
-                ? stringBuilder.Insert(0, $"{Conversions.GetDigitsNames()[rightDigit]} ")
-                : stringBuilder.Append(string.Empty);
+            stringBuilder = (rightDigit == 0 && middleDigit > 1) || (rightDigit == 0 && middleDigit == 0)
+                ? stringBuilder.Append(string.Empty) :
+                (middleDigit != 1
+                    ? stringBuilder.Insert(0, $"{Conversions.GetDigitsNames()[rightDigit]} ")
+                    : stringBuilder.Append(string.Empty)
+                );
             return stringBuilder;
         }
 
